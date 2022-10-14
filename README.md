@@ -12,3 +12,17 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 ## Image reconstruction demo
 
 ## Fine-tuning with pre-trained checkpoints
+
+The following table provides the pre-trained checkpoints used in the paper:
+<table><tbody>
+<!-- START TABLE -->
+<!-- TABLE HEADER -->
+<th valign="bottom"></th>
+<th valign="bottom">ViT-Small</th>
+<th valign="bottom">ViT-Base</th>
+<!-- TABLE BODY -->
+<tr><td align="left">pre-trained checkpoint</td>
+<td align="center"><a href="https://github.com/lambert-x/medical_mae">download</a></td>
+<td align="center"><a href="https://github.com/lambert-x/medical_mae">download</a></td>
+</tr>
+</tbody></table>
