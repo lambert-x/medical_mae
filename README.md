@@ -22,3 +22,8 @@ The following table provides the pre-trained checkpoints used in Table 1:
 | ResNet-50       | ImageNet (14M)       | BYOL  | download |
 | ResNet-50       | ImageNet (14M)       | SwAV  | download |
 | DenseNet-121    | X-rays (0.3M)        | MoCo v2  | download |
+| DenseNet-121    | X-rays (0.3M)        | MAE  | download |
+| ViT-Small/16    | ImageNet (14M)       | Categorization  | download |
+| ViT-Small/16    | ImageNet (14M)       | MAE  | download |
+| ViT-Small/16    | X-rays (0.3M)        | MAE  | download |
+| ViT-Base/16     | X-rays (0.5M)        | MAE  | download |
