@@ -11,6 +11,8 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 ## Image reconstruction demo
 
+<p align="center"><img src="figures/fig_reconstruction.png" width="100%"></p>
+
 ## Fine-tuning with pre-trained checkpoints
 
 The following table provides the pre-trained checkpoints used in Table 1:
