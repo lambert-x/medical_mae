@@ -13,16 +13,12 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 ## Fine-tuning with pre-trained checkpoints
 
-The following table provides the pre-trained checkpoints used in the paper:
-<table><tbody>
-<!-- START TABLE -->
-<!-- TABLE HEADER -->
-<th valign="bottom"></th>
-<th valign="bottom">ViT-Small</th>
-<th valign="bottom">ViT-Base</th>
-<!-- TABLE BODY -->
-<tr><td align="left">pre-trained checkpoint</td>
-<td align="center"><a href="https://github.com/lambert-x/medical_mae">download</a></td>
-<td align="center"><a href="https://github.com/lambert-x/medical_mae">download</a></td>
-</tr>
-</tbody></table>
+The following table provides the pre-trained checkpoints used in Table 1:
+
+| architecture    | Pre-training dataset | Method | Checkpoint | 
+|-----------------|:--------------------:|:------------------:|:-----------------:|
+| DenseNet-121    | ImageNet (14M)       | Categorization  | download |
+| ResNet-50       | ImageNet (14M)       | MoCo v2  | download |
+| ResNet-50       | ImageNet (14M)       | BYOL  | download |
+| ResNet-50       | ImageNet (14M)       | SwAV  | download |
+| DenseNet-121    | X-rays (0.3M)        | MoCo v2  | download |
