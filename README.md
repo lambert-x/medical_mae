@@ -29,3 +29,6 @@ The following table provides the pre-trained checkpoints used in Table 1:
 | ViT-Small/16    | ImageNet (14M)       | MAE  | download |
 | ViT-Small/16    | X-rays (0.3M)        | MAE  | download |
 | ViT-Base/16     | X-rays (0.5M)        | MAE  | download |
+
+## Acknowledgement
+This work was supported by the Lustgarten Foundation for Pancreatic Cancer Research.
