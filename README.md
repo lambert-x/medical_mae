@@ -7,7 +7,7 @@ This repository provides the official implementation of training Vision Transfor
 [Junfei Xiao](https://lambert-x.github.io/), [Yutong Bai](https://scholar.google.com/citations?user=N1-l4GsAAAAJ&hl=en), [Alan Yuille](https://scholar.google.com/citations?user=FJ-huxgAAAAJ&hl=en&oi=ao), [Zongwei Zhou](https://www.zongweiz.com/) <br/>
 Johns Hopkins University <br/>
 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
-[paper]() | [code]()
+[paper](https://arxiv.org/abs/2210.12843) | [code](https://github.com/lambert-x/medical_mae)
 
 ## Image reconstruction demo
 
