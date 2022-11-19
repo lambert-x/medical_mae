@@ -33,7 +33,12 @@ The following table provides the pre-trained checkpoints used in Table 1:
 ## Citation
 If you use this code or use our pre-trained weights for your research, please cite our papers:
 ```
-coming soon
+@article{xiao2022delving,
+  title={Delving into Masked Autoencoders for Multi-Label Thorax Disease Classification},
+  author={Xiao, Junfei and Bai, Yutong and Yuille, Alan and Zhou, Zongwei},
+  journal={arXiv preprint arXiv:2210.12843},
+  year={2022}
+}
 ```
 
 ## Acknowledgement
