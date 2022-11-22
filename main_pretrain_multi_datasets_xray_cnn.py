@@ -109,10 +109,6 @@ def get_args_parser():
                         help='RandomResizedCrop min/max ratio, default: None)')
     parser.add_argument('--fixed_lr', action='store_true', default=False)
     parser.add_argument('--mask_strategy', default='random', type=str)
-    parser.add_argument('--weight_range', type=float, nargs='+', default=[0.1, 1.0])
-    parser.add_argument("--heatmap_binary_threshold", default=None, type=str,
-                        help="define a mode for binarizing the heatmap, options: ['mean']")
-
     parser.add_argument('--repeated-aug', action='store_true', default=False)
     parser.add_argument('--datasets_names', type=str, nargs='+', default=[])
 

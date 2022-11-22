@@ -29,8 +29,7 @@ class MaskedAutoencoderViT(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3,
                  embed_dim=1024, depth=24, num_heads=16,
                  decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-                 mlp_ratio=4., norm_layer=nn.LayerNorm, norm_pix_loss=False, heatmap=None,
-                 mask_strategy='random', weight_range=[0.1, 1.0], heatmap_binary_threshold=None):
+                 mlp_ratio=4., norm_layer=nn.LayerNorm, norm_pix_loss=False, mask_strategy='random'):
         super().__init__()
 
         # --------------------------------------------------------------------------
@@ -77,8 +76,6 @@ class MaskedAutoencoderViT(nn.Module):
         self.img_size = img_size
         self.patch_size = patch_size
         self.mask_strategy = mask_strategy
-        self.weight_range = weight_range
-        self.heatmap_binary_threshold = heatmap_binary_threshold
         self.local_attention_mask = self.get_local_attention_mask(img_size, patch_size).cuda()
 
     # def extract_patch_weights(self, heatmap, img_size, patch_size, weight_min=0.1, weight_max=1.0,
@@ -123,29 +120,6 @@ class MaskedAutoencoderViT(nn.Module):
         masks = torch.stack(masks, dim=0).unsqueeze(dim=0)
         return masks
 
-    def extract_patch_weights(self, heatmaps, patch_size, weight_min=0.1, weight_max=1.0,
-                              heatmap_binary_threshold=None):
-        # heatmap = cv2.resize(heatmap, (img_size, img_size), interpolation=cv2.INTER_AREA)
-        # heatmap = heatmap[:, :, 0]  # only need one channel for mask
-        # heatmap = heatmap.astype(np.float32)
-        assert heatmaps.dim() == 4
-        heatmaps = heatmaps[:, :, :, 0]
-
-        if heatmap_binary_threshold is not None:
-            if heatmap_binary_threshold == 'mean':
-                # print('Using mean to binarize the heatmap weights')
-                threshold = heatmaps.mean(dim=[1, 2], keepdim=True)
-            else:
-                raise NotImplementedError
-            heatmaps = (heatmaps > threshold)
-        N = heatmaps.shape[0]
-        h = w = heatmaps.shape[1] // patch_size
-        heatmaps = heatmaps.reshape(N, h, patch_size, w, patch_size)
-        heatmaps = torch.einsum('nhpwq->nhwpq', heatmaps)
-        heatmap_weights = heatmaps.reshape(N, h * w, patch_size ** 2).sum(dim=-1)
-        heatmap_weights = (heatmap_weights / heatmap_weights.max(dim=1, keepdim=True)[0]) * (
-                weight_max - weight_min) + weight_min
-        return heatmap_weights
 
     def initialize_weights(self):
         # initialization
@@ -207,7 +181,7 @@ class MaskedAutoencoderViT(nn.Module):
         imgs = x.reshape(shape=(x.shape[0], 3, h * p, h * p))
         return imgs
 
-    def random_masking(self, x, mask_ratio, heatmaps=None):
+    def random_masking(self, x, mask_ratio):
         """
         Perform per-sample random masking by per-sample shuffling.
         Per-sample shuffling is done by argsort random noise.
@@ -217,67 +191,7 @@ class MaskedAutoencoderViT(nn.Module):
         len_keep = int(L * (1 - mask_ratio))
 
         noise = torch.rand(N, L, device=x.device)  # noise in [0, 1]
-        if self.mask_strategy in ['heatmap_weighted', 'heatmap_inverse_weighted']:
-            # print(self.mask_strategy)
-            assert heatmaps is not None
-            # print(heatmaps.shape)
-            heatmap_weights = self.extract_patch_weights(heatmaps, self.patch_size, weight_min=self.weight_range[0],
-                                                         weight_max=self.weight_range[1],
-                                                         heatmap_binary_threshold=self.heatmap_binary_threshold)
-            # print(heatmap_weights.shape)
-            # assert self.heatmap_weights is not None
 
-        if self.mask_strategy == 'heatmap_weighted':
-            weight = heatmap_weights.to(x.device)  # length 1D vector
-            noise = noise * weight
-        elif self.mask_strategy == 'heatmap_inverse_weighted':
-            weight = heatmap_weights.to(x.device)  # length 1D vector
-            weight = (weight.max(dim=1, keepdim=True)[0] - weight) + weight.min(dim=1, keepdim=True)[0]
-            noise = noise * weight
-        # print(heatmaps[0][0])
-        if 'local' in self.mask_strategy:
-            # print(self.mask_strategy)
-            heatmaps = heatmaps * self.local_attention_mask
-
-        if 'self_attention_mean' in self.mask_strategy:
-            assert heatmaps.shape == (N, L, L)
-            if 'square' in self.mask_strategy and 'weight_square' not in self.mask_strategy:
-                heatmaps = torch.square(heatmaps)
-            elif 'sqrt' in self.mask_strategy and 'weight_sqrt' not in self.mask_strategy:
-                heatmaps = torch.sqrt(heatmaps)
-
-            if 'local' in self.mask_strategy and 'global' not in self.mask_strategy:
-                heatmaps_local = heatmaps * self.local_attention_mask
-                weight = heatmaps_local.sum(dim=-1) / self.local_attention_mask.sum(dim=-1)
-            elif 'local' in self.mask_strategy and 'global' in self.mask_strategy:
-                heatmaps_local = heatmaps * self.local_attention_mask
-                weight_local = heatmaps_local.sum(dim=-1) / self.local_attention_mask.sum(dim=-1)
-                weight_global = heatmaps.mean(dim=-1)
-                weight = (weight_local + weight_global) / 2
-            else:
-                weight = heatmaps.mean(dim=-1)
-
-            if 'weight_square' in self.mask_strategy:
-                weight = torch.square(weight)
-            elif 'weight_sqrt' in self.mask_strategy:
-                weight = torch.sqrt(weight)
-
-            if 'inverse' in self.mask_strategy:
-                weight = (weight.max(dim=1, keepdim=True)[0] - weight) + weight.min(dim=1, keepdim=True)[0]
-
-            noise = noise * weight
-
-        if 'cross_batch_attention_mean' in self.mask_strategy:
-            assert heatmaps.shape == (N, L, N * L)
-            if 'local' in self.mask_strategy:
-                # print(self.mask_strategy)
-                weight = heatmaps.sum(dim=-1) / self.local_attention_mask.sum(dim=-1)
-            else:
-                weight = heatmaps.mean(dim=-1)
-
-            if 'inverse' in self.mask_strategy:
-                weight = (weight.max(dim=1, keepdim=True)[0] - weight) + weight.min(dim=1, keepdim=True)[0]
-            noise = noise * weight
 
         # sort noise for each sample
         ids_shuffle = torch.argsort(noise, dim=1)  # ascend: small is keep, large is remove
@@ -295,46 +209,15 @@ class MaskedAutoencoderViT(nn.Module):
 
         return x_masked, mask, ids_restore
 
-    def forward_encoder(self, x, mask_ratio, heatmaps=None):
+    def forward_encoder(self, x, mask_ratio):
         # embed patches
         x = self.patch_embed(x)
 
         # add pos embed w/o cls token
-        if 'self_attention' in self.mask_strategy and 'without_pe' in self.mask_strategy:
-            # [N, L, H * W]
-            feat = F.normalize(x, dim=-1)
-
-            # [N, L, L]
-            attention = torch.bmm(feat, feat.transpose(1, 2))
-            attention = torch.clamp(attention, min=0.)
-            heatmaps = attention
 
         x = x + self.pos_embed[:, 1:, :]
 
-        if 'cross_batch_attention' in self.mask_strategy and 'without_pe' not in self.mask_strategy:
-            # [N, L, c]
-            feat = F.normalize(x, dim=-1)
-            N = feat.shape[0]
-            L = feat.shape[1]
-            # [N, L, L]
-            feat = feat.reshape(-1, feat.shape[-1])
-            attention = torch.mm(feat, feat.transpose(0, 1))
-            # attention = torch.bmm(feat, feat.transpose(1, 2))
-            attention = torch.clamp(attention, min=0.)
-            attention = attention.reshape(N, L, N * L)
-            heatmaps = attention
-
-        if 'self_attention' in self.mask_strategy and 'without_pe' not in self.mask_strategy:
-            # [N, L, H * W]
-            feat = F.normalize(x, dim=-1)
-
-            # [N, L, L]
-            attention = torch.bmm(feat, feat.transpose(1, 2))
-            attention = torch.clamp(attention, min=0.)
-            heatmaps = attention
-        # masking: length -> length * mask_ratio
-
-        x, mask, ids_restore = self.random_masking(x, mask_ratio, heatmaps)
+        x, mask, ids_restore = self.random_masking(x, mask_ratio)
 
         # append cls token
         cls_token = self.cls_token + self.pos_embed[:, :1, :]
