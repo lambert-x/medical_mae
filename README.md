@@ -9,6 +9,11 @@ Johns Hopkins University <br/>
 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 [paper](https://arxiv.org/abs/2210.12843) | [code](https://github.com/lambert-x/medical_mae)
 
+
+## TO DO
+
+- [ ] Instructions for pretraining and fine-tuning.
+
 ## Image reconstruction demo
 
 <p align="center"><img src="figures/fig_reconstruction.png" width="100%"></p>
