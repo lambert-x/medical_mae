@@ -17,6 +17,8 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 The following table provides the pre-trained checkpoints used in Table 1:
 
+You can download **all the weights** in the following table with this [link](https://drive.google.com/drive/u/0/folders/14bAPhAhrvYTfm41V4-IiLRe3l6Vxhb1q) (google drive).
+
 |     Model    | Pretrained Dataset |     Method     |                                               Pretrained                                              |                                      Finetuned (NIH Chest X-ray)                                      |
 |:------------:|:------------------:|:--------------:|:-----------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------:|
 | DenseNet-121 |      ImageNet      | Categorization |          [torchvision official](https://download.pytorch.org/models/densenet121-a639ec97.pth)         | [google drive](https://drive.google.com/file/d/16sPPYXsLoCp00_t3PDYOsm7_yewAV8oN/view?usp=share_link) |
