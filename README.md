@@ -1,6 +1,7 @@
 # Medical Masked Autoencoders
 
 ## Paper
+
 This repository provides the official implementation of training Vision Transformers (ViT) for (2D) medical imaging tasks as well as the usage of the pre-trained ViTs in the following paper:
 
 <b>Delving into Masked Autoencoders for Multi-Label Thorax Disease Classification</b> <br/>
@@ -9,36 +10,47 @@ Johns Hopkins University <br/>
 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 [paper](https://arxiv.org/abs/2210.12843) | [code](https://github.com/lambert-x/medical_mae)
 
-
 ## TO DO
 
-- [ ] Instructions for pretraining and fine-tuning.
+- [x] Instructions for pretraining and fine-tuning.
 
 ## Image reconstruction demo
 
 <p align="center"><img src="figures/fig_reconstruction.png" width="100%"></p>
 
+## Pre-training on ImageNet or Chest X-rays
+
+The pre-training instruction is in [PRETRAIN.md](https://github.com/lambert-x/medical_mae/blob/main/PRETRAIN.md).
+
 ## Fine-tuning with pre-trained checkpoints
+
+The fine-tuning instruction is in [FINETUNE.md](https://github.com/lambert-x/medical_mae/blob/main/FINETUNE.md).
 
 The following table provides the pre-trained checkpoints used in Table 1:
 
 You can download **all the weights** in the following table with this [link](https://drive.google.com/drive/u/0/folders/14bAPhAhrvYTfm41V4-IiLRe3l6Vxhb1q) (google drive).
 
-|     Model    | Pretrained Dataset |     Method     |                                               Pretrained                                              |                                      Finetuned (NIH Chest X-ray)                                      |
+| Model        | Pretrained Dataset | Method         | Pretrained                                                                                            | Finetuned (NIH Chest X-ray)                                                                           |
 |:------------:|:------------------:|:--------------:|:-----------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------:|
-| DenseNet-121 |      ImageNet      | Categorization |          [torchvision official](https://download.pytorch.org/models/densenet121-a639ec97.pth)         | [google drive](https://drive.google.com/file/d/16sPPYXsLoCp00_t3PDYOsm7_yewAV8oN/view?usp=share_link) |
-|   ResNet-50  |      ImageNet      |     MoCo v2    | [google drive](https://drive.google.com/file/d/1GVSc3TOEhItliMToyY8Z4oHW_Kxf8cRj/view?usp=share_link) | [google drive](https://drive.google.com/file/d/18XCBzJW5x0foEjWcQhpzVPpv_YEcdePk/view?usp=share_link) |
-|   ResNet-50  |      ImageNet      |      BYOL      | [google drive](https://drive.google.com/file/d/1AIJzhoXmbs5bjAqdmwXoy5R0peiyPU4L/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1t13tMWCyYZzTkVa872oEqnYzXbrJpf4i/view?usp=share_link) |
-|   ResNet-50  |      ImageNet      |      SwAV      | [google drive](https://drive.google.com/file/d/1Puz15aWNM0t7B5RRq_ifc1dS4lnyFECG/view?usp=share_link) | [google drive](https://drive.google.com/file/d/179EBcVslxwroPrBr6iMQSs41F3tXbpqB/view?usp=share_link) |
-| DenseNet-121 |    X-rays (0.3M)   |     MoCo v2    | [google drive](https://drive.google.com/file/d/1idLcwL4C0eSGoLc5PI4ZWHzNLq_mJY-g/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1p4yKXYJG82FHpGRji2bK98xqeJ2J3sn5/view?usp=share_link) |
-| DenseNet 121 |    X-rays (0.3M)   |       MAE      | [google drive](https://drive.google.com/file/d/1f5KePD48QmHua7C5HBUV3i0PqNPkgmqj/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1bJC2ds2pw4bHpACMxEIU0PDgFioOJ1Vk/view?usp=share_link) |
-| ViT-Small/16 |      ImageNet      | Categorization |        [DeiT Official](https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth)       | [google drive](https://drive.google.com/file/d/1pPor2eJkm6_x_Mui09XprEqHsInH8kXn/view?usp=share_link) |
-| ViT-Small/16 |      ImageNet      |       MAE      | [google drive](https://drive.google.com/file/d/1QeAIWJWuNcccF09502xcnQ_2tbc2jRQG/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1BNgcMGYgtr3VTtdewmaY6BfracIXKM9c/view?usp=share_link) |
-| ViT-Small/16 |    X-rays (0.3M)   |       MAE      | [google drive](https://drive.google.com/file/d/1Yok1RemqP27iKJ5BUuoHhLRBB1GycITx/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1DkZMkXcFpj_SdffYZzw-Dq5clfo_YqjZ/view?usp=share_link) |
-|  ViT-Base/16 |    X-rays (0.5M)   |       MAE      | [google drive](https://drive.google.com/file/d/10wqOFCkhyWp6JdSFADrH6Xu9e1am3gXJ/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1eZXcoeMJAVjVJUNio2tCyHgiegaa-Vqr/view?usp=share_link) |
+| DenseNet-121 | ImageNet           | Categorization | [torchvision official](https://download.pytorch.org/models/densenet121-a639ec97.pth)                  | [google drive](https://drive.google.com/file/d/16sPPYXsLoCp00_t3PDYOsm7_yewAV8oN/view?usp=share_link) |
+| ResNet-50    | ImageNet           | MoCo v2        | [google drive](https://drive.google.com/file/d/1GVSc3TOEhItliMToyY8Z4oHW_Kxf8cRj/view?usp=share_link) | [google drive](https://drive.google.com/file/d/18XCBzJW5x0foEjWcQhpzVPpv_YEcdePk/view?usp=share_link) |
+| ResNet-50    | ImageNet           | BYOL           | [google drive](https://drive.google.com/file/d/1AIJzhoXmbs5bjAqdmwXoy5R0peiyPU4L/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1t13tMWCyYZzTkVa872oEqnYzXbrJpf4i/view?usp=share_link) |
+| ResNet-50    | ImageNet           | SwAV           | [google drive](https://drive.google.com/file/d/1Puz15aWNM0t7B5RRq_ifc1dS4lnyFECG/view?usp=share_link) | [google drive](https://drive.google.com/file/d/179EBcVslxwroPrBr6iMQSs41F3tXbpqB/view?usp=share_link) |
+| DenseNet-121 | X-rays (0.3M)      | MoCo v2        | [google drive](https://drive.google.com/file/d/1idLcwL4C0eSGoLc5PI4ZWHzNLq_mJY-g/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1p4yKXYJG82FHpGRji2bK98xqeJ2J3sn5/view?usp=share_link) |
+| DenseNet 121 | X-rays (0.3M)      | MAE            | [google drive](https://drive.google.com/file/d/1f5KePD48QmHua7C5HBUV3i0PqNPkgmqj/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1bJC2ds2pw4bHpACMxEIU0PDgFioOJ1Vk/view?usp=share_link) |
+| ViT-Small/16 | ImageNet           | Categorization | [DeiT Official](https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth)              | [google drive](https://drive.google.com/file/d/1pPor2eJkm6_x_Mui09XprEqHsInH8kXn/view?usp=share_link) |
+| ViT-Small/16 | ImageNet           | MAE            | [google drive](https://drive.google.com/file/d/1QeAIWJWuNcccF09502xcnQ_2tbc2jRQG/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1BNgcMGYgtr3VTtdewmaY6BfracIXKM9c/view?usp=share_link) |
+| ViT-Small/16 | X-rays (0.3M)      | MAE            | [google drive](https://drive.google.com/file/d/1Yok1RemqP27iKJ5BUuoHhLRBB1GycITx/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1DkZMkXcFpj_SdffYZzw-Dq5clfo_YqjZ/view?usp=share_link) |
+| ViT-Base/16  | X-rays (0.5M)      | MAE            | [google drive](https://drive.google.com/file/d/10wqOFCkhyWp6JdSFADrH6Xu9e1am3gXJ/view?usp=share_link) | [google drive](https://drive.google.com/file/d/1eZXcoeMJAVjVJUNio2tCyHgiegaa-Vqr/view?usp=share_link) |
+
+
+
+
 
 ## Citation
+
 If you use this code or use our pre-trained weights for your research, please cite our papers:
+
 ```
 @article{xiao2022delving,
   title={Delving into Masked Autoencoders for Multi-Label Thorax Disease Classification},
@@ -49,4 +61,7 @@ If you use this code or use our pre-trained weights for your research, please ci
 ```
 
 ## Acknowledgement
+
 This work was supported by the Lustgarten Foundation for Pancreatic Cancer Research.
+
+Our code is built upon [facebookresearch/mae](https://github.com/facebookresearch/mae).
