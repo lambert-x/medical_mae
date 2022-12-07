@@ -19,6 +19,21 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 <p align="center"><img src="figures/fig_reconstruction.png" width="100%"></p>
 
+
+## Installing Requirements
+
+Our codebase follows the [MAE Official](https://github.com/facebookresearch/mae) and uses some additional packages.
+You may use **one of** the following commands to build environments with `Conda` and `Pip`.
+```
+conda create -n medical_mae -f medical_mae.yml 
+```
+
+```
+conda create -n medical_mae python=3.8
+conda activate medical_mae
+pip install -r requirements.txt 
+```
+
 ## Pre-training on ImageNet or Chest X-rays
 
 The pre-training instruction is in [PRETRAIN.md](https://github.com/lambert-x/medical_mae/blob/main/PRETRAIN.md).
