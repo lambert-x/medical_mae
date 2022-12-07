@@ -24,10 +24,13 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 Our codebase follows the [MAE Official](https://github.com/facebookresearch/mae) and uses some additional packages.
 You may use **one of** the following commands to build environments with `Conda` and `Pip`.
+
+Conda:
 ```
 conda create -n medical_mae -f medical_mae.yml 
 ```
 
+Pip:
 ```
 conda create -n medical_mae python=3.8
 conda activate medical_mae
