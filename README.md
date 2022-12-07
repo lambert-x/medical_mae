@@ -12,6 +12,7 @@ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2023 <br/>
 
 ## TO DO
 
+- [ ] Instructions for preparing datasets.
 - [x] Instructions for pretraining and fine-tuning.
 
 ## Image reconstruction demo
