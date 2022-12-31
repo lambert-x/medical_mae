@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 ## Preparing Datasets:
 
-The MIMIC-CXR, CheXpert, and ChestX-ray14 datasets are public available on their official sites, you can download or request the access to them under the agreements.
+The MIMIC-CXR, CheXpert, and ChestX-ray14 datasets are public available on their official sites. You can download or request the access to them under the agreements.
 
 You may also download them through the following links for research only and follow the official agreements.
 
