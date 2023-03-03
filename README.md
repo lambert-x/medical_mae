@@ -89,11 +89,12 @@ You can download **all the weights** in the following table with this [link](htt
 If you use this code or use our pre-trained weights for your research, please cite our papers:
 
 ```
-@article{xiao2022delving,
-  title={Delving into Masked Autoencoders for Multi-Label Thorax Disease Classification},
+@inproceedings{xiao2023delving,
+  title={Delving into masked autoencoders for multi-label thorax disease classification},
   author={Xiao, Junfei and Bai, Yutong and Yuille, Alan and Zhou, Zongwei},
-  journal={arXiv preprint arXiv:2210.12843},
-  year={2022}
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+  pages={3588--3600},
+  year={2023}
 }
 ```
 
