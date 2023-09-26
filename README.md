@@ -82,8 +82,10 @@ You can download **all the weights** in the following table with this [link](htt
 
 
 
-
-
+| Model        | Pretrained Dataset         | Finetuned (Chest X-ray) | mAUC | Finetuned (CheXpert) | mAUC | Finetuned (COVIDx) | Accuracy |
+|:------------:|:------------------:|:---------------------------------------------------------------:|:----------------------------:| :--------------:| :--------------:| :--------------:| :--------------:|
+| ViT-Small/16 | X-rays (0.3M)      | [google drive](https://drive.google.com/file/d/1DkZMkXcFpj_SdffYZzw-Dq5clfo_YqjZ/view?usp=share_link) | **82.3** | [google drive](https://drive.google.com/file/d/1QQ849TGv5H9RtFzNFIopn0Ef7yoNMRpn/view?usp=sharing) | **89.2** | [google drive](https://drive.google.com/file/d/1DkZMkXcFpj_SdffYZzw-Dq5clfo_YqjZ/view?usp=share_link) | **95.2** |
+| ViT-Base/16  | X-rays (0.5M)      | [google drive](https://drive.google.com/file/d/1eZXcoeMJAVjVJUNio2tCyHgiegaa-Vqr/view?usp=share_link) | **83.0** | [google drive](https://drive.google.com/file/d/1yhU-648h5r8wvXGqehZykDoPiXDWHqpj/view?usp=sharing) | **89.3** | [google drive](https://drive.google.com/file/d/1N4aAJ1Xi_9tPUcFr4QDSwjyc9Uw7UTwO/view?usp=drive_link) | **95.3** |
 ## Citation
 
 If you use this code or use our pre-trained weights for your research, please cite our papers:
