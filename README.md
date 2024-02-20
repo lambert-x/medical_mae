@@ -100,6 +100,9 @@ If you use this code or use our pre-trained weights for your research, please ci
 }
 ```
 
+## License
+This repo is under Apache 2.0 license.
+
 ## Acknowledgement
 
 This work was supported by the Lustgarten Foundation for Pancreatic Cancer Research.
